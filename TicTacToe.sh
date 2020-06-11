@@ -9,10 +9,10 @@ function toss(){
 
 	if (($checkToss == 1 ))
 	then
-		echo -e "\nPlayer 1 plays First"
+		echo -e "\nPlayer 1 plays First\n"
 		playerChance=1
 	else
-		echo -e "\nComputer plays First"
+		echo -e "\nComputer plays First\n"
 		playerChance=0
 	fi
 }
@@ -30,7 +30,7 @@ function assignSymbol(){
 	fi
 
 	echo -e "\nPlayer 1 = $playerSymbol"
-	echo -e "Computer = $computerSymbol\n"
+	echo -e "Computer = $computerSymbol"
 
 }
 
@@ -98,8 +98,8 @@ function playersInput() {
 }
 
 #****** Main Method *****
-toss
 assignSymbol
+toss
 resetBoard
 playersInput
 #updatedBoard
