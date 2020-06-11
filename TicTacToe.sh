@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-echo -e "\n\tWelcome to Tic-Tac-Toe game.\n"
+echo -e "\n   Welcome to Tic-Tac-Toe game.\n"
 
 row=3
 function toss(){
@@ -17,6 +17,24 @@ function toss(){
 	fi
 }
 
+function assignSymbol(){
+	assign=$((RANDOM%2))
+
+	if (($assign==1))
+	then
+		player1='X'
+		computer='O'
+	else
+		player1='O'
+     	computer='X'
+	fi
+
+	echo -e "\nPlayer 1 = $player1"
+	echo -e "Computer = $computer\n"
+
+}
+
+
 function resetBoard(){
 
 	board=(1 2 3 4 5 6 7 8 9)
@@ -30,6 +48,8 @@ function resetBoard(){
 	done
 
 }
+
 #****** Main Method *****
 resetBoard
 toss
+assignSymbol
