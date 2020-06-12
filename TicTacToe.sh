@@ -9,21 +9,20 @@ numberOfShell=$(($row*$column))
 
 function toss(){
 
+	echo -e "Toss.."
 	checkToss=$((RANDOM%2))
-
 	if (($checkToss == 1 ))
 	then
-		echo -e "\nPlayer 1 plays First\n"
+		echo -e "\nPlayer Won the Toss\n"
 		playerChance=1
 	else
-		echo -e "\nComputer plays First\n"
+		echo -e "\nComputer Won the Toss\n"
 		playerChance=0
 	fi
 }
 
 function assignSymbol(){
 	assign=$((RANDOM%2))
-
 	if (($assign==1))
 	then
 		playerSymbol='X'
@@ -32,16 +31,15 @@ function assignSymbol(){
 		playerSymbol='O'
      	computerSymbol='X'
 	fi
-
 	echo -e "\nPlayer 1 = $playerSymbol"
 	echo -e "Computer = $computerSymbol"
-
 }
 
 
 function resetBoard(){
 
 	board=( 1 2 3 4 5 6 7 8 9 )
+	echo -e "********* BOARD ***********\n"
 	for (( i=0,j=0;j<$row;i=$(($i+3)),j++ ))
 	do
 		echo -e "\t${board[i]} | ${board[i+1]} | ${board[i+2]}"
@@ -49,14 +47,12 @@ function resetBoard(){
 		then
 			echo -e "\t---------"
 		fi
-
-
 	done
 
 }
 
 function updatedBoard() {
-
+echo -e "\n********* BOARD ***********\n"
 	for (( i=0,j=0;j<$row;i=$(($i+3)),j++ ))
    do
       echo -e "\t${board[i]} | ${board[i+1]} | ${board[i+2]}"
@@ -65,12 +61,10 @@ function updatedBoard() {
          echo -e "\t---------"
       fi
    done
-
-
 }
-function playerInput() {
 
-		echo -e "\nPlayers 1's Turn:"
+function playerInput() {
+		echo -e "\nPlayer's Turn:"
 		while ((1))
 		do
 			read -p "Select shell number: " shellNumber
@@ -451,7 +445,7 @@ then
 			if (( $checkWin == 1 ))
 			then
 				tie=0
-				echo -e "Player Won"
+				echo -e "Player WON"
 				break;
 			fi
 
@@ -467,7 +461,7 @@ then
 			if (( $checkWin == 1 ))
 			then
 				tie=0
-				echo -e "Computer Won"
+				echo -e "Computer WON"
 				break
 			fi
 			((chanceNumber++))
@@ -483,7 +477,7 @@ else
          if (( $checkWin == 1 ))
          then
 				tie=0
-				echo -e "Computer Won"
+				echo -e "Computer WON"
             break
          fi
 
@@ -499,7 +493,7 @@ else
          if (( $checkWin == 1 ))
          then
 				tie=0
-				echo -e "Player Won"
+				echo -e "Player WON"
             break;
          fi
 			((chanceNumber++))
@@ -509,5 +503,7 @@ fi
 
 if (($tie==1))
 then
-	echo "It is a tie"
+	echo -e"\n   It is a TIE\n"
+
 fi
+echo "*********** GAME OVER***********"
