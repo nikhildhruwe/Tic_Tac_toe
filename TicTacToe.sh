@@ -39,7 +39,7 @@ function assignSymbol(){
 function resetBoard(){
 
 	board=( 1 2 3 4 5 6 7 8 9 )
-	echo -e "********* BOARD ***********\n"
+	echo -e "********* BOARD ************\n"
 	for (( i=0,j=0;j<$row;i=$(($i+3)),j++ ))
 	do
 		echo -e "\t${board[i]} | ${board[i+1]} | ${board[i+2]}"
