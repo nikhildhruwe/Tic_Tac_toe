@@ -111,19 +111,28 @@ function computerInput() {
 			board[$shellNumber-1]=$computerSymbol
 			updatedBoard
 
-		return
-		else
-		while ((1))
-		do
-			shellNumber=$((RANDOM%9+1))
-			if (($shellNumber==${board[$shellNumber-1]}))
-			then
-			echo -e "Computer Selected shell number:$shellNumber"
-			board[$shellNumber-1]=$computerSymbol
-			updatedBoard
 			return
-			fi
-		done
+		fi
+		computerCornerShell
+		checkCorner=$?
+		if [ $checkCorner -eq 1 ]
+		then
+			 echo -e "Computer Selected Corner shell number: $shellNumber"
+         board[$shellNumber-1]=$computerSymbol
+         updatedBoard
+
+		else
+			while ((1))
+			do
+				shellNumber=$((RANDOM%9+1))
+				if (($shellNumber==${board[$shellNumber-1]}))
+				then
+					echo -e "Computer Selected shell number:$shellNumber"
+					board[$shellNumber-1]=$computerSymbol
+					updatedBoard
+					return
+				fi
+			done
 		fi
 
 }
@@ -158,6 +167,29 @@ function checkWinCombination(){
    else
       echo 0
    fi
+
+}
+function computerCornerShell() {
+
+			if ((${board[0]} == 1 ))
+			then
+				shellNumber=1
+				return 1
+			elif ((${board[2]} == 3 ))
+			then
+				shellNumber=3
+				return 1
+			elif ((${board[6]} == 7 ))
+			then
+				shellNumber=7
+				return 1
+			elif ((${board[8]} == 9 ))
+			then
+				shellNumber=9
+				return 1
+			else
+				return 0
+			fi
 
 }
 function computerWinningShell(){
