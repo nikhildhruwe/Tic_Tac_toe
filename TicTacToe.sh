@@ -273,7 +273,6 @@ function computerWinningShell(){
 }
 
 
-}
 #****** Main Method *****
 assignSymbol
 toss
