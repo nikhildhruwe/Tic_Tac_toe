@@ -113,11 +113,17 @@ function computerInput() {
 
 			return
 		fi
-		computerCornerShell
-		checkCorner=$?
-		if [ $checkCorner -eq 1 ]
+		computerCornerCentreShell
+		check=$?
+		if [ $check -eq 1 ]
 		then
-			 echo -e "Computer Selected Corner shell number: $shellNumber"
+			echo -e "Computer Selected Corner shell number: $shellNumber"
+         board[$shellNumber-1]=$computerSymbol
+         updatedBoard
+
+		elif [ $check -eq 2 ]
+		then
+			echo -e "Computer Selected Centre shell number: $shellNumber"
          board[$shellNumber-1]=$computerSymbol
          updatedBoard
 
@@ -169,7 +175,7 @@ function checkWinCombination(){
    fi
 
 }
-function computerCornerShell() {
+function computerCornerCentreShell() {
 
 			if ((${board[0]} == 1 ))
 			then
@@ -187,6 +193,10 @@ function computerCornerShell() {
 			then
 				shellNumber=9
 				return 1
+			elif ((${board[4]} == 5 ))
+			then
+				shellNumber=5
+				return 2
 			else
 				return 0
 			fi
