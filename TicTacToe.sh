@@ -113,7 +113,7 @@ function computerInput() {
 
 			return
 		fi
-		computerCornerCentreShell
+		computerCornerCentreSideShell
 		check=$?
 		if [ $check -eq 1 ]
 		then
@@ -126,19 +126,11 @@ function computerInput() {
 			echo -e "Computer Selected Centre shell number: $shellNumber"
          board[$shellNumber-1]=$computerSymbol
          updatedBoard
-
-		else
-			while ((1))
-			do
-				shellNumber=$((RANDOM%9+1))
-				if (($shellNumber==${board[$shellNumber-1]}))
-				then
-					echo -e "Computer Selected shell number:$shellNumber"
-					board[$shellNumber-1]=$computerSymbol
-					updatedBoard
-					return
-				fi
-			done
+		elif [ $check -eq 3 ]
+      then
+         echo -e "Computer Selected Side shell number: $shellNumber"
+         board[$shellNumber-1]=$computerSymbol
+         updatedBoard
 		fi
 
 }
@@ -175,7 +167,7 @@ function checkWinCombination(){
    fi
 
 }
-function computerCornerCentreShell() {
+function computerCornerCentreSideShell() {
 
 			if ((${board[0]} == 1 ))
 			then
@@ -197,6 +189,22 @@ function computerCornerCentreShell() {
 			then
 				shellNumber=5
 				return 2
+			elif ((${board[1]} == 2 ))
+			then
+				shellNumber=2
+				return 3
+			elif ((${board[3]} == 4 ))
+			then
+				shellNumber=4
+				return 3
+			elif ((${board[5]} == 6 ))
+			then
+				shellNumber=6
+				return 3
+			elif ((${board[7]} == 8 ))
+			then
+				shellNumber=8
+				return 3
 			else
 				return 0
 			fi
@@ -432,11 +440,13 @@ assignSymbol
 toss
 resetBoard
 tie=1
+chanceNumber=0
 if (( $playerChance==1 ))
 then
-	for ((k=0;$k<$numberOfShell;k++))
-	do
+		while (($chanceNumber<$numberOfShell))
+		do
 			playerInput
+
 			checkWin=$(checkWinCombination $playerSymbol)
 			if (( $checkWin == 1 ))
 			then
@@ -445,8 +455,14 @@ then
 				break;
 			fi
 
+			if (($chanceNumber==8))
+			then
+				break
+			fi
+			((chanceNumber++))
 
 			computerInput
+
 			checkWin=$(checkWinCombination $computerSymbol)
 			if (( $checkWin == 1 ))
 			then
@@ -454,11 +470,14 @@ then
 				echo -e "Computer Won"
 				break
 			fi
+			((chanceNumber++))
 
 	done
 else
-	for ((k=0;$k<$numberOfShell;k++))
+#	for ((k=0;$k<$numberOfShell;k++))
+	while (($chanceNumber<$numberOfShell))
 	do
+
 			computerInput
 			checkWin=$(checkWinCombination $computerSymbol)
          if (( $checkWin == 1 ))
@@ -467,6 +486,13 @@ else
 				echo -e "Computer Won"
             break
          fi
+
+			if (( $chanceNumber == 8 ))
+			then
+				break
+			fi
+			((chanceNumber++))
+
 			playerInput
 
 			checkWin=$(checkWinCombination $playerSymbol)
@@ -476,6 +502,8 @@ else
 				echo -e "Player Won"
             break;
          fi
+			((chanceNumber++))
+
 	done
 fi
 
