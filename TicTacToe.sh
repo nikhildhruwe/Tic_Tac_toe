@@ -96,7 +96,22 @@ function computerInput() {
 		checkWinningShell=$?
 		if [ $checkWinningShell -eq 1 ]
 		then
-			echo -e "Computer Selected shelll number: $shellNumber"
+			echo -e "Computer Selected winning shelll number: $shellNumber"
+			board[$shellNumber-1]=$computerSymbol
+			updatedBoard
+
+			return
+		fi
+
+		computerBlockShell
+		checkBlocking=$?
+		if [ $checkBlocking -eq 1 ]
+		then
+			echo -e "Computer Selected blocking shell number: $shellNumber"
+			board[$shellNumber-1]=$computerSymbol
+			updatedBoard
+
+		return
 		else
 		while ((1))
 		do
@@ -104,12 +119,12 @@ function computerInput() {
 			if (($shellNumber==${board[$shellNumber-1]}))
 			then
 			echo -e "Computer Selected shell number:$shellNumber"
-			break
+			board[$shellNumber-1]=$computerSymbol
+			updatedBoard
+			return
 			fi
 		done
 		fi
-		board[$shellNumber-1]=$computerSymbol
-		updatedBoard
 
 }
 function checkWinCombination(){
@@ -150,21 +165,21 @@ function computerWinningShell(){
 #columns
 		if [ ${board[0]} == $computerSymbol ] && [ ${board[1]} == $computerSymbol ]
       then
-      	if [ ${board[2]}==3 ]
+      	if (( ${board[2]} == 3 ))
        	then
              shellNumber=3
              return 1
 			fi
 		elif [ ${board[0]} == $computerSymbol ] && [ ${board[2]} == $computerSymbol ]
       then
-         if [ ${board[1]}==2 ]
+         if (( ${board[1]} == 2 ))
          then
              shellNumber=2
              return 1
 			fi
 		elif [ ${board[1]} == $computerSymbol ] && [ ${board[2]} == $computerSymbol ]
       then
-         if [ ${board[0]}==1 ]
+         if (( ${board[0]} == 1 ))
          then
              shellNumber=1
              return 1
@@ -172,21 +187,21 @@ function computerWinningShell(){
 
 		elif [ ${board[3]} == $computerSymbol ] && [ ${board[4]} == $computerSymbol ]
       then
-         if [ ${board[5]}==6 ]
+         if (( ${board[5]} == 6 ))
          then
              shellNumber=6
              return 1
 			fi
 		elif [ ${board[3]} == $computerSymbol ] && [ ${board[5]} == $computerSymbol ]
       then
-         if [ ${board[4]}==5 ]
+         if (( ${board[4]} == 5 ))
          then
              shellNumber=5
              return 1
 			fi
 		elif [ ${board[4]} == $computerSymbol ] && [ ${board[5]} == $computerSymbol ]
       then
-         if [ ${board[3]}==4 ]
+         if (( ${board[3]} == 4 ))
          then
              shellNumber=4
              return 1
@@ -194,21 +209,21 @@ function computerWinningShell(){
 
 		elif [ ${board[6]} == $computerSymbol ] && [ ${board[7]} == $computerSymbol ]
       then
-         if [ ${board[8]}==9 ]
+         if (( ${board[8]} == 9 ))
          then
              shellNumber=9
              return 1
 			fi
 		elif [ ${board[6]} == $computerSymbol ] && [ ${board[8]} == $computerSymbol ]
       then
-         if [ ${board[7]}==8 ]
+         if (( ${board[7]} == 8 ))
          then
              shellNumber=8
              return 1
 			fi
 		elif [ ${board[7]} == $computerSymbol ] && [ ${board[8]} == $computerSymbol ]
       then
-         if [ ${board[6]}==7 ]
+         if (( ${board[6]} == 7 ))
          then
              shellNumber=7
              return 1
@@ -216,21 +231,21 @@ function computerWinningShell(){
 #colmumn
 		elif [ ${board[0]} == $computerSymbol ] && [ ${board[3]} == $computerSymbol ]
       then
-         if [ ${board[6]}==7 ]
+         if (( ${board[6]} == 7 ))
          then
              shellNumber=7
              return 1
 			fi
 		elif [ ${board[0]} == $computerSymbol ] && [ ${board[6]} == $computerSymbol ]
       then
-         if [ ${board[3]}==4 ]
+         if (( ${board[3]} == 4 ))
          then
              shellNumber=4
              return 1
 			fi
 		elif [ ${board[3]} == $computerSymbol ] && [ ${board[6]} == $computerSymbol ]
       then
-         if [ ${board[0]}==1 ]
+         if (( ${board[0]} == 1 ))
          then
              shellNumber=1
              return 1
@@ -240,21 +255,21 @@ function computerWinningShell(){
 
 		elif [ ${board[1]} == $computerSymbol ] && [ ${board[4]} == $computerSymbol ]
       then
-         if [ ${board[7]}==8 ]
+         if (( ${board[7]} == 8 ))
          then
              shellNumber=8
              return 1
 			fi
 		elif [ ${board[4]} == $computerSymbol ] && [ ${board[7]} == $computerSymbol ]
       then
-         if [ ${board[1]}==2 ]
+         if (( ${board[1]} == 2 ))
          then
              shellNumber=2
              return 1
 			fi
 		elif [ ${board[1]} == $computerSymbol ] && [ ${board[7]} == $computerSymbol ]
       then
-         if [ ${board[4]}==5 ]
+         if (( ${board[4]} == 5 ))
          then
              shellNumber=5
              return 1
@@ -263,21 +278,21 @@ function computerWinningShell(){
 
 			elif [ ${board[2]} == $computerSymbol ] && [ ${board[5]} == $computerSymbol ]
       then
-         if [ ${board[8]}==9 ]
+         if (( ${board[8]} == 9 ))
          then
              shellNumber=9
              return 1
 			fi
 		elif [ ${board[2]} == $computerSymbol ] && [ ${board[8]} == $computerSymbol ]
       then
-         if [ ${board[5]}==6 ]
+         if (( ${board[5]} == 6 ))
          then
              shellNumber=6
              return 1
 			fi
 		elif [ ${board[5]} == $computerSymbol ] && [ ${board[8]} == $computerSymbol ]
       then
-         if [ ${board[2]}==3 ]
+         if (( ${board[2]} == 3 ))
          then
              shellNumber=3
              return 1
@@ -288,21 +303,21 @@ function computerWinningShell(){
 #diagonals
 		elif [ ${board[0]} == $computerSymbol ] && [ ${board[4]} == $computerSymbol ]
       then
-         if [ ${board[8]}==9 ]
+         if (( ${board[8]} == 9 ))
          then
              shellNumber=9
              return 1
 			fi
 		elif [ ${board[0]} == $computerSymbol ] && [ ${board[8]} == $computerSymbol ]
       then
-         if [ ${board[4]}==5 ]
+         if (( ${board[4]} == 5 ))
          then
              shellNumber=5
              return 1
 			fi
 		elif [ ${board[4]} == $computerSymbol ] && [ ${board[8]} == $computerSymbol ]
       then
-         if [ ${board[0]}==1 ]
+         if (( ${board[0]} == 1 ))
          then
              shellNumber=1
              return 1
@@ -311,21 +326,21 @@ function computerWinningShell(){
 
 		elif [ ${board[2]} == $computerSymbol ] && [ ${board[4]} == $computerSymbol ]
       then
-         if [ ${board[6]}==7 ]
+         if (( ${board[6]} == 7 ))
          then
              shellNumber=7
              return 1
 			fi
 		elif [ ${board[2]} == $computerSymbol ] && [ ${board[6]} == $computerSymbol ]
       then
-         if [ ${board[4]}==5 ]
+         if (( ${board[4]} == 5 ))
          then
              shellNumber=5
              return 1
 			fi
 		elif [ ${board[4]} == $computerSymbol ] && [ ${board[6]} == $computerSymbol ]
       then
-         if [ ${board[2]}==3 ]
+         if (( ${board[2]} == 3 ))
          then
              shellNumber=3
              return 1
@@ -338,7 +353,195 @@ function computerWinningShell(){
 }
 
 
+function computerBlockShell(){
 
+#columns
+      if [ ${board[0]} == $playerSymbol ] && [ ${board[1]} == $playerSymbol ]
+      then
+         if (( ${board[2]}==3 ))
+         then
+             shellNumber=3
+             return 1
+         fi
+      elif [ ${board[0]} == $playerSymbol ] && [ ${board[2]} == $playerSymbol ]
+      then
+         if (( ${board[1]}==2 ))
+         then
+             shellNumber=2
+             return 1
+         fi
+      elif [ ${board[1]} == $playerSymbol ] && [ ${board[2]} == $playerSymbol ]
+      then
+         if (( ${board[0]}==1 ))
+         then
+             shellNumber=1
+             return 1
+         fi
+
+      elif [ ${board[3]} == $playerSymbol ] && [ ${board[4]} == $playerSymbol ]
+      then
+         if (( ${board[5]}==6 ))
+         then
+             shellNumber=6
+             return 1
+         fi
+      elif [ ${board[3]} == $playerSymbol ] && [ ${board[5]} == $playerSymbol ]
+      then
+         if (( ${board[4]}==5 ))
+         then
+             shellNumber=5
+             return 1
+         fi
+      elif [ ${board[4]} == $playerSymbol ] && [ ${board[5]} == $playerSymbol ]
+      then
+         if (( ${board[3]}==4 ))
+         then
+             shellNumber=4
+             return 1
+         fi
+
+      elif [ ${board[6]} == $playerSymbol ] && [ ${board[7]} == $playerSymbol ]
+      then
+         if (( ${board[8]}==9 ))
+         then
+             shellNumber=9
+             return 1
+         fi
+      elif [ ${board[6]} == $playerSymbol ] && [ ${board[8]} == $playerSymbol ]
+      then
+         if (( ${board[7]}==8 ))
+         then
+             shellNumber=8
+             return 1
+         fi
+      elif [ ${board[7]} == $playerSymbol ] && [ ${board[8]} == $playerSymbol ]
+      then
+         if (( ${board[6]}==7 ))
+         then
+             shellNumber=7
+             return 1
+         fi
+#colmumn
+      elif [ ${board[0]} == $playerSymbol ] && [ ${board[3]} == $playerSymbol ]
+      then
+         if (( ${board[6]}==7 ))
+         then
+             shellNumber=7
+             return 1
+         fi
+      elif [ ${board[0]} == $playerSymbol ] && [ ${board[6]} == $playerSymbol ]
+      then
+         if (( ${board[3]}==4 ))
+         then
+             shellNumber=4
+             return 1
+         fi
+      elif [ ${board[3]} == $playerSymbol ] && [ ${board[6]} == $playerSymbol ]
+      then
+         if (( ${board[0]}==1 ))
+         then
+             shellNumber=1
+             return 1
+         fi
+
+
+
+      elif [ ${board[1]} == $playerSymbol ] && [ ${board[4]} == $playerSymbol ]
+      then
+         if (( ${board[7]}==8 ))
+         then
+             shellNumber=8
+             return 1
+         fi
+      elif [ ${board[4]} == $playerSymbol ] && [ ${board[7]} == $playerSymbol ]
+      then
+         if (( ${board[1]}==2 ))
+         then
+             shellNumber=2
+             return 1
+         fi
+      elif [ ${board[1]} == $playerSymbol ] && [ ${board[7]} == $playerSymbol ]
+      then
+         if (( ${board[4]}==5 ))
+         then
+             shellNumber=5
+             return 1
+         fi
+
+
+         elif [ ${board[2]} == $playerSymbol ] && [ ${board[5]} == $playerSymbol ]
+      then
+         if (( ${board[8]}==9 ))
+         then
+             shellNumber=9
+             return 1
+         fi
+      elif [ ${board[2]} == $playerSymbol ] && [ ${board[8]} == $playerSymbol ]
+      then
+         if (( ${board[5]}==6 ))
+         then
+             shellNumber=6
+             return 1
+         fi
+      elif [ ${board[5]} == $playerSymbol ] && [ ${board[8]} == $playerSymbol ]
+      then
+         if (( ${board[2]}==3 ))
+         then
+             shellNumber=3
+             return 1
+         fi
+
+
+
+#diagonals
+      elif [ ${board[0]} == $playerSymbol ] && [ ${board[4]} == $playerSymbol ]
+      then
+         if (( ${board[8]}==9 ))
+         then
+             shellNumber=9
+             return 1
+         fi
+      elif [ ${board[0]} == $playerSymbol ] && [ ${board[8]} == $playerSymbol ]
+      then
+         if (( ${board[4]}==5 ))
+         then
+             shellNumber=5
+             return 1
+         fi
+      elif [ ${board[4]} == $playerSymbol ] && [ ${board[8]} == $playerSymbol ]
+      then
+         if (( ${board[0]}==1 ))
+         then
+             shellNumber=1
+             return 1
+         fi
+
+
+      elif [ ${board[2]} == $playerSymbol ] && [ ${board[4]} == $playerSymbol ]
+      then
+         if (( ${board[6]}==7 ))
+         then
+             shellNumber=7
+             return 1
+         fi
+      elif [ ${board[2]} == $playerSymbol ] && [ ${board[6]} == $playerSymbol ]
+      then
+         if (( ${board[4]}==5 ))
+         then
+             shellNumber=5
+             return 1
+         fi
+      elif [ ${board[4]} == $playerSymbol ] && [ ${board[6]} == $playerSymbol ]
+      then
+         if (( ${board[2]}==3 ))
+         then
+             shellNumber=3
+             return 1
+         fi
+      else
+			return 0
+	fi
+}
 #****** Main Method *****
 assignSymbol
 toss
