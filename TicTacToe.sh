@@ -435,75 +435,48 @@ toss
 resetBoard
 tie=1
 chanceNumber=0
-if (( $playerChance==1 ))
-then
-		while (($chanceNumber<$numberOfShell))
-		do
-			playerInput
+while ((1))
+do
+	if (( $playerChance==1 ))
+   then
+		playerInput
+		((chanceNumber++))
+		playerChance=0
+    fi
 
-			checkWin=$(checkWinCombination $playerSymbol)
-			if (( $checkWin == 1 ))
-			then
-				tie=0
-				echo -e "Player WON"
-				break;
-			fi
-
-			if (($chanceNumber==8))
-			then
-				break
-			fi
-			((chanceNumber++))
-
-			computerInput
-
-			checkWin=$(checkWinCombination $computerSymbol)
-			if (( $checkWin == 1 ))
-			then
-				tie=0
-				echo -e "Computer WON"
-				break
-			fi
-			((chanceNumber++))
-
-	done
-else
-#	for ((k=0;$k<$numberOfShell;k++))
-	while (($chanceNumber<$numberOfShell))
-	do
-
-			computerInput
-			checkWin=$(checkWinCombination $computerSymbol)
-         if (( $checkWin == 1 ))
-         then
-				tie=0
-				echo -e "Computer WON"
+     computerInput
+     checkWin=$(checkWinCombination $computerSymbol)
+     if (( $checkWin == 1 ))
+     then
+         tie=0
+         echo -e "\nComputer WON"
+         break
+      fi
+      ((chanceNumber++))
+      if (($chanceNumber==9))
+      then
             break
-         fi
+       fi
 
-			if (( $chanceNumber == 8 ))
-			then
-				break
-			fi
-			((chanceNumber++))
+       playerInput
+       checkWin=$(checkWinCombination $playerSymbol)
+       if (( $checkWin == 1 ))
+       then
+          tie=0
+          echo -e "\nPlayer WON"
+          break;
+       fi
 
-			playerInput
-
-			checkWin=$(checkWinCombination $playerSymbol)
-         if (( $checkWin == 1 ))
-         then
-				tie=0
-				echo -e "Player WON"
-            break;
-         fi
-			((chanceNumber++))
-
-	done
-fi
+     ((chanceNumber++))
+     if (($chanceNumber==9))
+     then
+        break
+      fi
+done
 
 if (($tie==1))
 then
-	echo -e"\n   It is a TIE\n"
+	echo -e "\n   It is a TIE\n"
 
 fi
 echo "*********** GAME OVER***********"
