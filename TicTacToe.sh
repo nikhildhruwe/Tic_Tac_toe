@@ -86,32 +86,29 @@ function playerInput() {
 function computerInput() {
 
 		echo -e "\nComputer's turn,"
-		computerWinningShell
+		computerWinBlockShell $computerSymbol
 		checkWinningShell=$?
 		if [ $checkWinningShell -eq 1 ]
 		then
-			echo -e "Computer Selected winning shelll number: $shellNumber"
 			return
 		fi
 
-		computerBlockShell
+		computerWinBlockShell $playerSymbol
 		checkBlocking=$?
 		if [ $checkBlocking -eq 1 ]
 		then
-			echo -e "Computer Selected blocking shell number: $shellNumber"
 			return
 		fi
 		computerCornerCentreSideShell
 		check=$?
 		if [ $check -eq 1 ]
 		then
-			echo -e "Computer Selected Corner shell number: $shellNumber"
+				return
 		elif [ $check -eq 2 ]
 		then
-			echo -e "Computer Selected Centre shell number: $shellNumber"
+				return
 		elif [ $check -eq 3 ]
       then
-         echo -e "Computer Selected Side shell number: $shellNumber"
 			return
 		fi
 
@@ -192,142 +189,31 @@ function computerCornerCentreSideShell() {
 			fi
 
 }
-function computerWinningShell(){
-#Rows
-      for ((a=0,r=0;$a<$row;a++,r=$(($r+3))))
-      do
 
-      if [ ${board[r]} == $computerSymbol ] && [ ${board[r+1]} == $computerSymbol ]
-      then
-         if (( ${board[r+2]} == $(($r+2+1)) ))
-         then
-             shellNumber=$(($r+2+1))
-             return 1
-         fi
-      elif [ ${board[r]} == $computerSymbol ] && [ ${board[r+2]} == $computerSymbol ]
-      then
-         if (( ${board[r+1]} == $(($r+1+1)) ))
-         then
-             shellNumber=$(($r+1+1))
-             return 1
-         fi
-      elif [ ${board[r+1]} == $computerSymbol ] && [ ${board[r+2]} == $computerSymbol ]
-      then
-         if (( ${board[r]} == $(($r+1)) ))
-         then
-             shellNumber=$(($r+1))
-             return 1
-         fi
-      fi
-      done
-
-
-#colmumn
-      local c=0
-      for ((c=0;$c<$column;c++))
-      do
-      if [ ${board[c]} == $computerSymbol ] && [ ${board[c+3]} == $computerSymbol ]
-      then
-         if (( ${board[c+6]} == $(($c+6+1)) ))
-         then
-             shellNumber=$(($c+6+1))
-             return 1
-         fi
-      elif [ ${board[c]} == $computerSymbol ] && [ ${board[c+6]} == $computerSymbol ]
-      then
-         if (( ${board[c+3]} == $(($c+3+1)) ))
-         then
-             shellNumber=$(($c+3+1))
-             return 1
-         fi
-      elif [ ${board[c+3]} == $computerSymbol ] && [ ${board[c+6]} == $computerSymbol ]
-      then
-         if (( ${board[c]} == $(($c+1)) ))
-         then
-             shellNumber=$(($c+1))
-             return 1
-         fi
-      fi
-      done
-
-
-#diagonals
-      if [ ${board[0]} == $computerSymbol ] && [ ${board[4]} == $computerSymbol ]
-      then
-         if (( ${board[8]}==9 ))
-         then
-             shellNumber=9
-             return 1
-         fi
-      elif [ ${board[0]} == $computerSymbol ] && [ ${board[8]} == $computerSymbol ]
-      then
-         if (( ${board[4]}==5 ))
-         then
-             shellNumber=5
-             return 1
-         fi
-      elif [ ${board[4]} == $computerSymbol ] && [ ${board[8]} == $computerSymbol ]
-      then
-         if (( ${board[0]}==1 ))
-         then
-             shellNumber=1
-             return 1
-         fi
-
-
-      elif [ ${board[2]} == $computerSymbol ] && [ ${board[4]} == $computerSymbol ]
-      then
-         if (( ${board[6]}==7 ))
-         then
-             shellNumber=7
-             return 1
-         fi
-      elif [ ${board[2]} == $computerSymbol ] && [ ${board[6]} == $computerSymbol ]
-      then
-         if (( ${board[4]}==5 ))
-         then
-             shellNumber=5
-             return 1
-         fi
-      elif [ ${board[4]} == $computerSymbol ] && [ ${board[6]} == $computerSymbol ]
-      then
-         if (( ${board[2]}==3 ))
-         then
-             shellNumber=3
-             return 1
-         fi
-      else
-         return 0
-      fi
-
-
-}
-
-
-
-function computerBlockShell(){
+function computerWinBlockShell(){
 
 #Rows
+		local symbol=$1
 		local a=0
 		local r=0
       for ((a=0,r=0;$a<$row;a++,r=$(($r+3))))
       do
 
-      if [ ${board[r]} == $playerSymbol ] && [ ${board[r+1]} == $playerSymbol ]
+      if [ ${board[r]} == $symbol ] && [ ${board[r+1]} == $symbol ]
       then
          if (( ${board[r+2]} == $(($r+2+1)) ))
          then
              shellNumber=$(($r+2+1))
              return 1
          fi
-      elif [ ${board[r]} == $playerSymbol ] && [ ${board[r+2]} == $playerSymbol ]
+      elif [ ${board[r]} == $symbol ] && [ ${board[r+2]} == $symbol ]
       then
          if (( ${board[r+1]} == $(($r+1+1)) ))
          then
              shellNumber=$(($r+1+1))
              return 1
          fi
-      elif [ ${board[r+1]} == $playerSymbol ] && [ ${board[r+2]} == $playerSymbol ]
+      elif [ ${board[r+1]} == $symbol ] && [ ${board[r+2]} == $symbol ]
       then
          if (( ${board[r]} == $(($r+1)) ))
          then
@@ -342,21 +228,21 @@ function computerBlockShell(){
       local c=0
       for ((c=0;$c<$column;c++))
       do
-      if [ ${board[c]} == $playerSymbol ] && [ ${board[c+3]} == $playerSymbol ]
+      if [ ${board[c]} == $symbol ] && [ ${board[c+3]} == $symbol ]
       then
          if (( ${board[c+6]} == $(($c+6+1)) ))
          then
              shellNumber=$(($c+6+1))
              return 1
          fi
-      elif [ ${board[c]} == $playerSymbol ] && [ ${board[c+6]} == $playerSymbol ]
+      elif [ ${board[c]} == $symbol ] && [ ${board[c+6]} == $symbol ]
       then
          if (( ${board[c+3]} == $(($c+3+1)) ))
          then
              shellNumber=$(($c+3+1))
              return 1
          fi
-      elif [ ${board[c+3]} == $playerSymbol ] && [ ${board[c+6]} == $playerSymbol ]
+      elif [ ${board[c+3]} == $symbol ] && [ ${board[c+6]} == $symbol ]
       then
          if (( ${board[c]} == $(($c+1)) ))
          then
@@ -368,21 +254,21 @@ function computerBlockShell(){
 
 
 #diagonals
-      if [ ${board[0]} == $playerSymbol ] && [ ${board[4]} == $playerSymbol ]
+      if [ ${board[0]} == $symbol ] && [ ${board[4]} == $symbol ]
       then
          if (( ${board[8]}==9 ))
          then
              shellNumber=9
              return 1
          fi
-      elif [ ${board[0]} == $playerSymbol ] && [ ${board[8]} == $playerSymbol ]
+      elif [ ${board[0]} == $symbol ] && [ ${board[8]} == $symbol ]
       then
          if (( ${board[4]}==5 ))
          then
              shellNumber=5
              return 1
          fi
-      elif [ ${board[4]} == $playerSymbol ] && [ ${board[8]} == $playerSymbol ]
+      elif [ ${board[4]} == $symbol ] && [ ${board[8]} == $symbol ]
       then
          if (( ${board[0]}==1 ))
          then
@@ -391,21 +277,21 @@ function computerBlockShell(){
          fi
 
 
-      elif [ ${board[2]} == $playerSymbol ] && [ ${board[4]} == $playerSymbol ]
+      elif [ ${board[2]} == $symbol ] && [ ${board[4]} == $symbol ]
       then
          if (( ${board[6]}==7 ))
          then
              shellNumber=7
              return 1
          fi
-      elif [ ${board[2]} == $playerSymbol ] && [ ${board[6]} == $playerSymbol ]
+      elif [ ${board[2]} == $symbol ] && [ ${board[6]} == $symbol ]
       then
          if (( ${board[4]}==5 ))
          then
              shellNumber=5
              return 1
          fi
-      elif [ ${board[4]} == $playerSymbol ] && [ ${board[6]} == $playerSymbol ]
+      elif [ ${board[4]} == $symbol ] && [ ${board[6]} == $symbol ]
       then
          if (( ${board[2]}==3 ))
          then
@@ -433,6 +319,7 @@ do
     fi
 
      computerInput
+     echo -e "Computer Selected shell number: $shellNumber"
 	  board[$shellNumber-1]=$computerSymbol
 	  updatedBoard
      checkWin=$(checkWinCombination $computerSymbol)
