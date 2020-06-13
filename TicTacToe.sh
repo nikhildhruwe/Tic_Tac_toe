@@ -2,7 +2,7 @@
 
 echo -e "\n   Welcome to Tic-Tac-Toe game.\n"
 echo -e "Player vs Computer\n"
-
+##### Variables#####
 row=3
 column=3
 numberOfShell=$(($row*$column))
@@ -62,7 +62,7 @@ echo -e "\n********* BOARD ***********\n"
       fi
    done
 }
-
+#******** Players Input shell *******
 function playerInput() {
 		echo -e "\nPlayer's Turn:"
 		while ((1))
@@ -82,7 +82,7 @@ function playerInput() {
 		board[$shellNumber-1]=$playerSymbol
 		updatedBoard
 }
-
+#*****Computers Input logic********
 function computerInput() {
 
 		echo -e "\nComputer's turn,"
@@ -107,6 +107,7 @@ function computerInput() {
 		fi
 
 }
+#*********Checking Winning situation for player and computer ***********#
 function checkWinCombination(){
 
 		local symbol=$1
@@ -140,6 +141,7 @@ function checkWinCombination(){
    fi
 
 }
+#******** Checking Corner,Center then side availability*****
 function computerCornerCentreSideShell() {
 
 			if ((${board[0]} == 1 ))
@@ -184,6 +186,7 @@ function computerCornerCentreSideShell() {
 
 }
 
+#######***** Computer's winning and blocking situation******######
 function computerWinBlockShell(){
 
 #Rows
