@@ -91,9 +91,6 @@ function computerInput() {
 		if [ $checkWinningShell -eq 1 ]
 		then
 			echo -e "Computer Selected winning shelll number: $shellNumber"
-			board[$shellNumber-1]=$computerSymbol
-			updatedBoard
-
 			return
 		fi
 
@@ -102,9 +99,6 @@ function computerInput() {
 		if [ $checkBlocking -eq 1 ]
 		then
 			echo -e "Computer Selected blocking shell number: $shellNumber"
-			board[$shellNumber-1]=$computerSymbol
-			updatedBoard
-
 			return
 		fi
 		computerCornerCentreSideShell
@@ -112,19 +106,13 @@ function computerInput() {
 		if [ $check -eq 1 ]
 		then
 			echo -e "Computer Selected Corner shell number: $shellNumber"
-         board[$shellNumber-1]=$computerSymbol
-         updatedBoard
-
 		elif [ $check -eq 2 ]
 		then
 			echo -e "Computer Selected Centre shell number: $shellNumber"
-         board[$shellNumber-1]=$computerSymbol
-         updatedBoard
 		elif [ $check -eq 3 ]
       then
          echo -e "Computer Selected Side shell number: $shellNumber"
-         board[$shellNumber-1]=$computerSymbol
-         updatedBoard
+			return
 		fi
 
 }
@@ -445,6 +433,8 @@ do
     fi
 
      computerInput
+	  board[$shellNumber-1]=$computerSymbol
+	  updatedBoard
      checkWin=$(checkWinCombination $computerSymbol)
      if (( $checkWin == 1 ))
      then
