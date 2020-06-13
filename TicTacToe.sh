@@ -103,12 +103,6 @@ function computerInput() {
 		check=$?
 		if [ $check -eq 1 ]
 		then
-				return
-		elif [ $check -eq 2 ]
-		then
-				return
-		elif [ $check -eq 3 ]
-      then
 			return
 		fi
 
@@ -167,23 +161,23 @@ function computerCornerCentreSideShell() {
 			elif ((${board[4]} == 5 ))
 			then
 				shellNumber=5
-				return 2
+				return 1
 			elif ((${board[1]} == 2 ))
 			then
 				shellNumber=2
-				return 3
+				return 1
 			elif ((${board[3]} == 4 ))
 			then
 				shellNumber=4
-				return 3
+				return 1
 			elif ((${board[5]} == 6 ))
 			then
 				shellNumber=6
-				return 3
+				return 1
 			elif ((${board[7]} == 8 ))
 			then
 				shellNumber=8
-				return 3
+				return 1
 			else
 				return 0
 			fi
