@@ -2,7 +2,7 @@
 
 echo -e "\n   Welcome to Tic-Tac-Toe game.\n"
 echo -e "Player vs Computer\n"
-##### Variables#####
+##### Constants#####
 row=3
 column=3
 numberOfShell=$(($row*$column))
